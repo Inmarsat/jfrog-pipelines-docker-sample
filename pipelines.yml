@@ -11,7 +11,7 @@ resources:
     type: Image
     configuration:
       registry: art                                # <-- replace with your artifactory integration
-      sourceRepository: docker_local               # <-- required if registry is Artifactory
+      sourceRepository: test-docker-local               # <-- required if registry is Artifactory
       imageName: inmarsat.jfrog.io/test-docker/dbp  # < -- replace with your image path and name
       imageTag: latest
       autoPull: true
@@ -51,7 +51,7 @@ pipelines:
         type: DockerPush
         configuration:
           affinityGroup: dbp_group
-          targetRepository: docker-local
+          targetRepository: test-docker-local
           integrations:
             - name: art                            # <-- replace with your artifactory integration
           inputSteps:
@@ -70,7 +70,7 @@ pipelines:
       - name: promote_dbp_build
         type: PromoteBuild
         configuration:
-          targetRepository: demo-pipelines
+          targetRepository: test-docker-local
           integrations:
             - name: art
           inputResources:
